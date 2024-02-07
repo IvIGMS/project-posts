@@ -2,10 +2,10 @@ package com.example.demo.services;
 
 import java.util.List;
 
-import com.example.demo.models.User;
 import com.example.demo.models.dto.PostDTO;
 import com.example.demo.models.dto.UserNopassDTO;
 import com.example.demo.models.dto.UserRegisterDTO;
+
 
 public interface UserService {
 	public List<UserNopassDTO> findAll();

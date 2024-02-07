@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +13,7 @@ import com.example.demo.models.dto.PostDTO;
 import com.example.demo.models.dto.UserNopassDTO;
 import com.example.demo.models.dto.UserRegisterDTO;
 import com.example.demo.repositories.UserRepository;
+
 
 @Service
 public class UserServiceImpl implements UserService {
