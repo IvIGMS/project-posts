@@ -75,10 +75,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post delete(Long id) {
+	public Post delete(Long id, Long userId) {
+		// Cambiar la logica
 		Post currentPost = findById(id);
-		
-		if(currentPost!=null) {
+		// Comprobamos si el post que estamos rescatando pertenece al user que hace la peticion
+		if(currentPost!=null && userId.equals(currentPost.getUserId())) {
 			postRepository.delete(currentPost);
 			return currentPost;
 		} else {

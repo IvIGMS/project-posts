@@ -32,4 +32,14 @@ public class PostController {
     public ResponseEntity<List<PostDTO>> list(HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.OK).body(postService.listPostByUser(request));
     }
+
+    @DeleteMapping("/delete/{tweetId}")
+    public ResponseEntity<PostDTO> delete(HttpServletRequest request, @PathVariable Long tweetId) {
+        PostDTO postDTO = postService.deletePost(request, tweetId);
+        if (postDTO!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(postDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

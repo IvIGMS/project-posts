@@ -10,6 +10,6 @@ public interface PostService {
 	public Post findById(Long id);
 	public Post create(PostCreateDTO post);
 	public Post update(PostCreateDTO post, Long id);
-	public Post delete(Long id);
+	public Post delete(Long id, Long userId);
 	public List<Post> findByUserId(Long id);
 }

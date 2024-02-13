@@ -10,4 +10,6 @@ public interface PostService {
     PostDTO createPost(HttpServletRequest request, PostCreateDTO post);
 
     List<PostDTO> listPostByUser(HttpServletRequest request);
+
+    PostDTO deletePost(HttpServletRequest request, Long tweetId);
 }

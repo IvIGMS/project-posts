@@ -41,4 +41,15 @@ public class PostServiceImpl implements PostService{
 
         return userService.listPostByUserId(id_);
     }
+
+    @Override
+    public PostDTO deletePost(HttpServletRequest request, Long postId) {
+        // Obtenemos el claims
+        Claims claims = userService.getClaimsToken(request);
+        // Rescatamos el id.
+        int id = (int) claims.get("id");
+        long userId = (long) id;
+
+        return postServiceClient.delete(postId, userId);
+    }
 }
