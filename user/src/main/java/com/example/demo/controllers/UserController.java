@@ -38,11 +38,6 @@ public class UserController {
 	public ResponseEntity<List<PostDTO>> list(@PathVariable Long userId){
 		return ResponseEntity.status(HttpStatus.OK).body(userService.listPostByUserId(userId));
 	}
-
-	@GetMapping("/list/posts")
-	public ResponseEntity<List<PostDTO>> list(HttpServletRequest request){
-		return ResponseEntity.status(HttpStatus.OK).body(userService.listPostByUser(request));
-	}
 	
 	@GetMapping("/list/{id}")
 	public ResponseEntity<UserNopassDTO> findById(@PathVariable Long id){
@@ -94,15 +89,7 @@ public class UserController {
         }
 	}
 
-	@PostMapping("/create/post")
-	public ResponseEntity<PostDTO> createPost(HttpServletRequest request, @RequestBody PostCreateDTO post){
-		PostDTO createdPost = userService.createPost(request, post);
-		if (createdPost!=null){
-			return ResponseEntity.status(HttpStatus.OK).body(createdPost);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-	}
+
 }
 
 

@@ -6,6 +6,7 @@ import com.example.demo.models.dto.PostCreateDTO;
 import com.example.demo.models.dto.PostDTO;
 import com.example.demo.models.dto.UserNopassDTO;
 import com.example.demo.models.dto.UserRegisterDTO;
+import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,8 +19,5 @@ public interface UserService {
 	public UserNopassDTO delete(HttpServletRequest request);
 	public List<PostDTO> listPostByUserId(Long id);
 	UserNopassDTO profile(HttpServletRequest request);
-
-	PostDTO createPost(HttpServletRequest request, PostCreateDTO post);
-
-	List<PostDTO> listPostByUser(HttpServletRequest request);
+	Claims getClaimsToken(HttpServletRequest request);
 }

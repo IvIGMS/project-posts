@@ -114,16 +114,7 @@ public class UserServiceImpl implements UserService {
 		return postServiceClient.findPostsByUserId(id);
 	}
 
-	@Override
-	public List<PostDTO> listPostByUser(HttpServletRequest request) {
-		// Obtenemos el claims
-		Claims claims = getClaimsToken(request);
-		// Rescatamos el id.
-		int id = (int) claims.get("id");
-		long id_ = (long) id;
 
-		return listPostByUserId(id_);
-	}
 
 	@Override
 	public UserNopassDTO profile(HttpServletRequest request) {
@@ -136,16 +127,7 @@ public class UserServiceImpl implements UserService {
 		return findById(id_);
 	}
 
-	@Override
-	public PostDTO createPost(HttpServletRequest request, PostCreateDTO post) {
-		// Obtenemos el claims
-		Claims claims = getClaimsToken(request);
-		// Rescatamos el id.
-		int id = (int) claims.get("id");
-		long id_ = (long) id;
 
-		return postServiceClient.create(new PostCreateDTO_(id_, post.getText()));
-	}
 
 	public Claims getClaimsToken(HttpServletRequest request) {
 		String secretKey = "mNajgf39sNvfDSjdnglo3129dfnLAS21nSlkl59";
