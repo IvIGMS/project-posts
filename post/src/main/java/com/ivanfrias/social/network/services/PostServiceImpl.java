@@ -37,9 +37,9 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post create(PostCreateDTO post) {
 		// Comprobar si existe el user:
-		List<Long> ids = userServiceClient.getUsersId();
-		boolean isFound = ids.contains(post.getUserId());
-		
+		//List<Long> ids = userServiceClient.getUsersId();
+		//boolean isFound = ids.contains(post.getUserId());
+		boolean isFound=true;
 		if(isFound) {
 			// Logica de crear post
 			Post currentPost = new Post(post.getUserId(), post.getText());

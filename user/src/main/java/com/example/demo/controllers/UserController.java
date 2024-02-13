@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import com.example.demo.models.dto.PostCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,10 @@ import com.example.demo.models.dto.UserNopassDTO;
 import com.example.demo.models.dto.UserRegisterDTO;
 import com.example.demo.services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/user")
 public class UserController {
 	
 	@Autowired
@@ -35,8 +38,13 @@ public class UserController {
 	public ResponseEntity<List<PostDTO>> list(@PathVariable Long userId){
 		return ResponseEntity.status(HttpStatus.OK).body(userService.listPostByUserId(userId));
 	}
+
+	@GetMapping("/list/posts")
+	public ResponseEntity<List<PostDTO>> list(HttpServletRequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(userService.listPostByUser(request));
+	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/list/{id}")
 	public ResponseEntity<UserNopassDTO> findById(@PathVariable Long id){
 		UserNopassDTO user = userService.findById(id);
 		if (user!=null){
@@ -55,10 +63,20 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 	}
+
+	@GetMapping("/profile")
+	public ResponseEntity<UserNopassDTO> profile(HttpServletRequest request){
+		UserNopassDTO currentUser = userService.profile(request);
+		if (currentUser!=null){
+			return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<UserNopassDTO> update(@PathVariable Long id, @RequestBody UserRegisterDTO user) {
-		UserNopassDTO currentUser = userService.update(user, id);
+	@PutMapping("/update")
+	public ResponseEntity<UserNopassDTO> update(HttpServletRequest request, @RequestBody UserRegisterDTO user) {
+		UserNopassDTO currentUser = userService.update(user, request);
 		if (currentUser!=null){
             return ResponseEntity.status(HttpStatus.OK).body(currentUser);
         } else {
@@ -66,20 +84,24 @@ public class UserController {
         }
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<UserNopassDTO> delete(@PathVariable Long id){
-		UserNopassDTO currentUser = userService.delete(id);
+	@DeleteMapping("/delete")
+	public ResponseEntity<UserNopassDTO> delete(HttpServletRequest request){
+		UserNopassDTO currentUser = userService.delete(request);
 		if (currentUser!=null){
             return ResponseEntity.status(HttpStatus.OK).body(currentUser);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 	}
-	
-	// Este metodo es solo para crear un post y poder verificar que existe el usuario que crea el post
-	@GetMapping("/getUsersId")
-	public ResponseEntity<List<Long>> getUsersId(){
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findAllUsersId());
+
+	@PostMapping("/create/post")
+	public ResponseEntity<PostDTO> createPost(HttpServletRequest request, @RequestBody PostCreateDTO post){
+		PostDTO createdPost = userService.createPost(request, post);
+		if (createdPost!=null){
+			return ResponseEntity.status(HttpStatus.OK).body(createdPost);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 	}
 }
 
